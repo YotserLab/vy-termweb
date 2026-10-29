@@ -6,11 +6,11 @@ sdk-extensions:
   - org.freedesktop.Sdk.Extension.node20
   - org.freedesktop.Sdk.Extension.golang
 command: vy-termweb
-# pnpm install + go mod download need network during the build. flatpak-builder
-# has no --share=network flag itself; build-args are forwarded to the
-# `flatpak build` invocations it runs internally.
-build-args:
-  - --share=network
+build-options:
+  # pnpm install + go mod download need network during the build — build-args
+  # are forwarded to the `flatpak build` calls flatpak-builder runs internally.
+  build-args:
+    - --share=network
 finish-args:
   # The server binds localhost and does real SSH/SFTP/ping/traceroute/SOCKS.
   - --share=network
