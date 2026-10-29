@@ -60,9 +60,11 @@ modules:
         path: ../../pnpm-lock.yaml
     build-commands:
       - rm -rf backend/dist backend/vy-termweb backend/termweb packaging/flatpak/repack
-      - corepack enable
-      - pnpm install --frozen-lockfile
-      - pnpm -C frontend build
+      # `corepack enable` fails on the read-only SDK extension dir (EROFS
+      # writing shims to /usr/lib/sdk/node20/bin) — dispatch via corepack
+      # instead, no symlinks needed.
+      - corepack pnpm install --frozen-lockfile
+      - corepack pnpm -C frontend build
       - rm -rf backend/dist && cp -a frontend/dist backend/dist
       - go -C backend build -trimpath -ldflags "-s -w" -o vy-termweb .
       - install -Dm755 backend/vy-termweb /app/bin/vy-termweb
