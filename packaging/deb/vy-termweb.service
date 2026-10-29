@@ -1,0 +1,16 @@
+[Unit]
+Description=VY-TermWEB — web-based SSH/SFTP terminal
+Documentation=https://github.com/YotserLab/vy-termweb
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+EnvironmentFile=-/etc/default/vy-termweb
+ExecStart=/usr/lib/vy-termweb/launch
+Restart=on-failure
+RestartSec=3
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target

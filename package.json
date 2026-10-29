@@ -1,0 +1,18 @@
+{
+  "name": "vy-termweb",
+  "private": true,
+  "version": "1.3.0",
+  "type": "module",
+  "packageManager": "pnpm@12.16.1",
+  "scripts": {
+    "dev": "./scripts/dev.sh",
+    "dev:backend": "go -C backend run .",
+    "dev:ui": "pnpm -C frontend exec vite build --watch",
+    "build": "pnpm -C frontend build",
+    "clean": "rm -rf frontend/dist backend/dist",
+    "lint": "pnpm -C frontend exec tsc --noEmit",
+    "build:go": "./scripts/build-go.sh",
+    "build:deb": "./scripts/build-deb.sh",
+    "build:flatpak": "./scripts/build-flatpak.sh"
+  }
+}

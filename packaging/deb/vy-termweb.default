@@ -1,0 +1,26 @@
+# VY-TermWEB service configuration
+#
+# RUN_AS_USER (required): existing system user the server runs as.
+# The web UI exposes a local PTY shell and a filesystem browser with no
+# authentication — whoever can reach the port gets a shell as this user.
+# The installer pre-fills this with the user who ran `sudo dpkg -i`.
+RUN_AS_USER=
+
+# PORT: HTTP port (default 32230)
+#PORT=32230
+
+# SHELL: shell used for Local Shell sessions (default: the user's login shell)
+#SHELL=/bin/bash
+
+# VY_MASTER_PASSWORD: master password gating the whole web panel (terminals,
+# files and tools). Uncomment to require a password — without it the panel is
+# open to anyone who can reach the port. Stored here in plaintext, so this
+# file is installed root-readable only (0600). Alternative: leave unset and
+# create the password on the first web access (stored as PBKDF2 hash in
+# ~/.vy-termweb/auth.json of RUN_AS_USER).
+#VY_MASTER_PASSWORD=
+
+# VY_AUTH_DISABLED=1: disable the panel password entirely (not recommended —
+# the UI has no other protection; use only behind a VPN/auth proxy or on
+# loopback-only setups).
+#VY_AUTH_DISABLED=

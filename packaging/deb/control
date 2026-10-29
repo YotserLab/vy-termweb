@@ -1,0 +1,16 @@
+Package: vy-termweb
+Version: @VERSION@
+Section: admin
+Priority: optional
+Architecture: @ARCH@
+Maintainer: YotserLab <contato@yotserlab.local>
+Recommends: ffmpeg
+Description: Web-based SSH/SFTP terminal and infrastructure manager
+ VY-TermWEB is a browser-based terminal and infrastructure manager.
+ It provides real SSH/SFTP sessions, a local PTY
+ shell, SSH port forwarding (local/remote/dynamic), a graphical file
+ manager, a Monaco text editor and a network scanner — all served by a
+ single self-contained Go binary with the frontend embedded.
+ .
+ The daemon listens on 0.0.0.0:PORT (default 32230) and runs as the
+ system user configured in /etc/default/vy-termweb.

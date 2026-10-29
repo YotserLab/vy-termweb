@@ -1,0 +1,48 @@
+#!/bin/sh
+set -e
+
+DEFAULTS=/etc/default/vy-termweb
+
+pick_run_as_user() {
+  # Prefer the user who invoked sudo; fall back to the first regular user.
+  if [ -n "${SUDO_USER:-}" ] && [ "$SUDO_USER" != "root" ]; then
+    printf '%s' "$SUDO_USER"
+    return
+  fi
+  getent passwd 1000 | cut -d: -f1
+}
+
+case "$1" in
+  configure)
+    # The defaults file may hold VY_MASTER_PASSWORD in plaintext — root only.
+    chmod 600 "$DEFAULTS" 2>/dev/null || true
+    # On first install, pre-fill RUN_AS_USER when it is empty.
+    if [ -f "$DEFAULTS" ]; then
+      # shellcheck disable=SC1090
+      . "$DEFAULTS"
+      if [ -z "${RUN_AS_USER:-}" ]; then
+        cand="$(pick_run_as_user || true)"
+        if [ -n "$cand" ]; then
+          sed -i "s/^RUN_AS_USER=.*/RUN_AS_USER=$cand/" "$DEFAULTS"
+          echo "vy-termweb: RUN_AS_USER=$cand — edit $DEFAULTS to change."
+        else
+          echo "vy-termweb: WARNING — set RUN_AS_USER in $DEFAULTS before the service can start." >&2
+        fi
+      fi
+    fi
+
+    if [ -d /run/systemd/system ]; then
+      systemctl daemon-reload
+      systemctl enable vy-termweb.service >/dev/null 2>&1 || true
+      # shellcheck disable=SC1090
+      . "$DEFAULTS" 2>/dev/null || true
+      if [ -n "${RUN_AS_USER:-}" ]; then
+        systemctl restart vy-termweb.service || true
+      else
+        echo "vy-termweb: service enabled but not started (RUN_AS_USER unset)." >&2
+      fi
+    fi
+    ;;
+esac
+
+exit 0

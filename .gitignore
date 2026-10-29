@@ -1,0 +1,25 @@
+node_modules/
+dist/
+build/
+coverage/
+*.log
+.DS_Store
+.env*
+!.env.example
+
+# build outputs
+dist-go/
+dist-deb/
+dist-flatpak/
+backend/vy-termweb
+backend/termweb
+backend/dist/
+
+# flatpak-builder
+.flatpak-builder/
+build-dir/
+flatpak-repo/
+
+# internal dev notes (kept out of the public repo)
+HANDOFF.md
+LOGWORK.md

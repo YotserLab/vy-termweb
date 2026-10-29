@@ -1,0 +1,33 @@
+@import "tailwindcss";
+@import "xterm/css/xterm.css";
+
+@theme {
+  --color-vy-bg: #f0f0f0;
+  --color-vy-border: #c0c0c0;
+  --color-vy-nav: #e1e1e1;
+  --color-vy-toolbar: #f5f5f5;
+  --color-vy-sidebar: #fcfcfc;
+  --color-vy-text: #333333;
+  --color-vy-accent: #f97316; /* orange-500 */
+}
+
+@layer base {
+  body {
+    @apply antialiased text-vy-text bg-vy-bg overflow-hidden select-none text-sm font-sans;
+  }
+}
+
+/* Custom terminal styling */
+.xterm-viewport::-webkit-scrollbar {
+  width: 10px;
+}
+.xterm-viewport::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+.xterm-viewport::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+}
+.xterm-viewport::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+

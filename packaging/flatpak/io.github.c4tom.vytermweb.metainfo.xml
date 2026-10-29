@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.c4tom.vytermweb</id>
+  <name>VY-TermWEB</name>
+  <summary>Web-based SSH/SFTP terminal and infrastructure manager</summary>
+  <metadata_license>MIT</metadata_license>
+  <project_license>MIT</project_license>
+  <developer>
+    <name>c4tom</name>
+  </developer>
+  <description>
+    <p>
+      VY-TermWEB is a browser-based terminal and infrastructure manager.
+      A single Go binary serves the full panel — SSH/SFTP sessions, a local
+      shell, file manager, text editor, network scanner and system info —
+      gated by a master password.
+    </p>
+    <ul>
+      <li>SSH terminal sessions with resumable connections, jump hosts and L/R/SOCKS5 tunnels</li>
+      <li>SFTP file manager with remote edit, upload/download and thumbnails</li>
+      <li>Local shell (PTY) — inside Flatpak it spawns the real host shell</li>
+      <li>Local filesystem browser, Monaco/plain text editor, session logging</li>
+      <li>Network scanner (ping + TCP sweep, MAC/vendor, port scan, traceroute)</li>
+      <li>Encrypted credential vault, session groups, macros, i18n (en/pt-BR/es)</li>
+    </ul>
+  </description>
+  <launchable type="desktop-id">io.github.c4tom.vytermweb.desktop</launchable>
+  <categories>
+    <category>Network</category>
+    <category>System</category>
+  </categories>
+  <url type="homepage">https://github.com/c4tom/vy-termweb</url>
+  <url type="bugtracker">https://github.com/c4tom/vy-termweb/issues</url>
+  <content_rating type="oars-1.1"/>
+  <releases>
+    <release version="1.3.0" date="2026-10-29"/>
+  </releases>
+  <provides>
+    <binary>vy-termweb</binary>
+  </provides>
+</component>

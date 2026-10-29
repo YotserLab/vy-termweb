@@ -1,0 +1,8 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: vy-termweb
+Source: https://github.com/YotserLab/vy-termweb
+
+Files: *
+Copyright: YotserLab
+License: Proprietary
+ All rights reserved.
