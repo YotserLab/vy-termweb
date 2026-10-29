@@ -35,6 +35,10 @@ fi
 BUILD_DIR="$ROOT/build-dir"
 REPO="$ROOT/flatpak-repo"
 OUT_DIR="$ROOT/dist-flatpak"
+# Builder state (source copies, caches, pnpm store) is heavy — keep it off
+# slow mounts (e.g. NFS). Override with FB_STATE_DIR.
+STATE_DIR="${FB_STATE_DIR:-$HOME/.cache/vy-termweb-flatpak-builder}"
+mkdir -p "$STATE_DIR"
 
 if command -v flatpak-builder >/dev/null; then
   BUILDER=(flatpak-builder)
@@ -50,11 +54,16 @@ fi
 echo "==> flatpak-builder ($APP_ID)"
 # --user: resolve runtimes/deps from the per-user installation — also the only
 # mode that works on CI runners (no system polkit/dbus for system installs).
-# --disable-rofiles-fuse: read-only source copies can't be unlinked on some
-# mounts (unlinkat EACCES during build-dir cleanup).
-"${BUILDER[@]}" --user --force-clean --disable-rofiles-fuse \
+# --disable-rofiles-fuse + --keep-build-dirs: pnpm's store files are read-only
+# (mode 444), so the builder's own rm of the build dir fails on some mounts —
+# keep the dirs and clean them ourselves below.
+"${BUILDER[@]}" --user --force-clean --disable-rofiles-fuse --keep-build-dirs \
+  --state-dir="$STATE_DIR" \
   --install-deps-from=flathub \
   --repo="$REPO" "$BUILD_DIR" "$MANIFEST"
+
+chmod -R u+w "$STATE_DIR/build" 2>/dev/null || true
+rm -rf "$STATE_DIR/build"
 
 mkdir -p "$OUT_DIR"
 BUNDLE="$OUT_DIR/$APP_ID.flatpak"
