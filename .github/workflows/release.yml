@@ -26,6 +26,10 @@ jobs:
       - run: ./scripts/build-go.sh
       - run: SKIP_BUILD=1 SKIP_FRONTEND=1 ./scripts/build-deb.sh amd64
       - run: SKIP_BUILD=1 SKIP_FRONTEND=1 ./scripts/build-deb.sh arm64
+      - uses: actions/upload-artifact@v4
+        with:
+          name: binaries
+          path: dist-go/vy-termweb-linux-amd64
       - uses: softprops/action-gh-release@v2
         with:
           generate_release_notes: true
@@ -35,18 +39,19 @@ jobs:
             dist-deb/*.deb
 
   flatpak:
+    needs: binaries
     runs-on: ubuntu-latest
-    container:
-      image: bilelmoussaoui/flatpak-github-actions:freedesktop-24.08
-      options: --privileged
     steps:
       - uses: actions/checkout@v4
-      - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
+      - uses: actions/download-artifact@v4
         with:
-          manifest-path: packaging/flatpak/io.github.yotserlab.vytermweb.yml
-          bundle: io.github.yotserlab.vytermweb.flatpak
-          runtime-repo: https://flathub.org/repo/flathub.flatpakrepo
-          upload-artifact: false
+          name: binaries
+          path: dist-go
+      - run: |
+          sudo apt-get update
+          sudo apt-get install -y flatpak flatpak-builder
+          flatpak --user remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+      - run: ./scripts/build-flatpak.sh --repack dist-go/vy-termweb-linux-amd64
       - uses: softprops/action-gh-release@v2
         with:
-          files: "*.flatpak"
+          files: dist-flatpak/*.flatpak

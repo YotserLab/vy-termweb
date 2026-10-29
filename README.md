@@ -2,7 +2,7 @@
 
 Web-based SSH/SFTP terminal and infrastructure manager. A single Go binary
 serves the full panel — no external services, no cloud, everything runs on
-your machine.
+your machine. Based on MobaXterm.
 
 ## Features
 
@@ -24,6 +24,12 @@ your machine.
 - **i18n** — English, Português (BR), Español
 - **Extras** — macro recording, split view, HP48G-style calculator,
   import/export of sessions
+
+
+![File Manager](./assets/filemanager.png)
+![Local Shell](./assets/local-shell.png)
+![Main Panel](./assets/main.png)
+![Text Editor](./assets/text-editor.png)
 
 ## Quick start
 

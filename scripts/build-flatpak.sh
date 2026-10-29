@@ -17,7 +17,21 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 APP_ID="io.github.yotserlab.vytermweb"
-MANIFEST="$ROOT/packaging/flatpak/$APP_ID.yml"
+FLATPAK_DIR="$ROOT/packaging/flatpak"
+MANIFEST="$FLATPAK_DIR/$APP_ID.yml"
+
+# --repack <linux-binary>: skip the source build and repackage an existing
+# binary (used by CI: the release binaries job builds once, this only packs).
+if [ "${1:-}" = "--repack" ]; then
+  BIN_SRC="${2:?usage: build-flatpak.sh --repack <path-to-linux-binary>}"
+  MANIFEST="$FLATPAK_DIR/$APP_ID.repack.yml"
+  mkdir -p "$FLATPAK_DIR/repack"
+  install -m 0755 "$BIN_SRC" "$FLATPAK_DIR/repack/vy-termweb"
+  for f in desktop metainfo.xml svg; do
+    install -m 0644 "$FLATPAK_DIR/$APP_ID.$f" "$FLATPAK_DIR/repack/"
+  done
+  trap 'rm -rf "$FLATPAK_DIR/repack"' EXIT
+fi
 BUILD_DIR="$ROOT/build-dir"
 REPO="$ROOT/flatpak-repo"
 OUT_DIR="$ROOT/dist-flatpak"

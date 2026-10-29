@@ -1,0 +1,25 @@
+# Repackage manifest — used by CI releases. Installs the prebuilt release
+# binary instead of compiling inside the sandbox (no network needed).
+# Populate repack/ first (see scripts/build-flatpak.sh --repack):
+#   repack/vy-termweb                      linux binary for the target arch
+#   repack/io.github.yotserlab.vytermweb.{desktop,metainfo.xml,svg}
+app-id: io.github.yotserlab.vytermweb
+runtime: org.freedesktop.Platform
+runtime-version: '25.08'
+sdk: org.freedesktop.Sdk
+command: vy-termweb
+finish-args:
+  - --share=network
+  - --filesystem=host
+  - --talk-name=org.freedesktop.Flatpak
+modules:
+  - name: vy-termweb
+    buildsystem: simple
+    sources:
+      - type: dir
+        path: repack
+    build-commands:
+      - install -Dm755 repack/vy-termweb /app/bin/vy-termweb
+      - install -Dm644 repack/io.github.yotserlab.vytermweb.desktop /app/share/applications/io.github.yotserlab.vytermweb.desktop
+      - install -Dm644 repack/io.github.yotserlab.vytermweb.metainfo.xml /app/share/metainfo/io.github.yotserlab.vytermweb.metainfo.xml
+      - install -Dm644 repack/io.github.yotserlab.vytermweb.svg /app/share/icons/hicolor/scalable/apps/io.github.yotserlab.vytermweb.svg
