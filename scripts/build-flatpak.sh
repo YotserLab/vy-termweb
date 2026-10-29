@@ -34,7 +34,9 @@ else
 fi
 
 echo "==> flatpak-builder ($APP_ID)"
-"${BUILDER[@]}" --force-clean \
+# --user: resolve runtimes/deps from the per-user installation — also the only
+# mode that works on CI runners (no system polkit/dbus for system installs).
+"${BUILDER[@]}" --user --force-clean \
   --install-deps-from=flathub \
   --repo="$REPO" "$BUILD_DIR" "$MANIFEST"
 
