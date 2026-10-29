@@ -29,9 +29,37 @@ modules:
         CGO_ENABLED: "0"
         GOPATH: /run/build/vy-termweb/go
     sources:
+      # Selective sources only — copying the whole repo would drag in
+      # node_modules, dist-go, build dirs and .flatpak-builder itself.
       - type: dir
-        path: ../..
+        path: ../../frontend/src
+        dest: frontend/src
+      - type: file
+        path: ../../frontend/index.html
+        dest: frontend
+      - type: file
+        path: ../../frontend/package.json
+        dest: frontend
+      - type: file
+        path: ../../frontend/tsconfig.json
+        dest: frontend
+      - type: file
+        path: ../../frontend/vite.config.ts
+        dest: frontend
+      - type: dir
+        path: ../../backend
+        dest: backend
+      - type: dir
+        path: ../../packaging
+        dest: packaging
+      - type: file
+        path: ../../package.json
+      - type: file
+        path: ../../pnpm-workspace.yaml
+      - type: file
+        path: ../../pnpm-lock.yaml
     build-commands:
+      - rm -rf backend/dist backend/vy-termweb backend/termweb packaging/flatpak/repack
       - corepack enable
       - pnpm install --frozen-lockfile
       - pnpm -C frontend build
