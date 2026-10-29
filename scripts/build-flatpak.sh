@@ -3,7 +3,7 @@
 # source inside the org.freedesktop.Sdk, then bundles an OSTree repo export).
 #
 # Usage:
-#   ./scripts/build-flatpak.sh        # -> dist-flatpak/io.github.c4tom.vytermweb.flatpak
+#   ./scripts/build-flatpak.sh        # -> dist-flatpak/io.github.yotserlab.vytermweb.flatpak
 #
 # Requirements (user install is enough):
 #   flatpak-builder, plus the flathub remote with
@@ -15,21 +15,25 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-APP_ID="io.github.c4tom.vytermweb"
+APP_ID="io.github.yotserlab.vytermweb"
 MANIFEST="$ROOT/packaging/flatpak/$APP_ID.yml"
 BUILD_DIR="$ROOT/build-dir"
 REPO="$ROOT/flatpak-repo"
 OUT_DIR="$ROOT/dist-flatpak"
 
-command -v flatpak-builder >/dev/null || {
+if command -v flatpak-builder >/dev/null; then
+  BUILDER=(flatpak-builder)
+elif flatpak info org.flatpak.Builder >/dev/null 2>&1; then
+  BUILDER=(flatpak run org.flatpak.Builder)
+else
   echo "error: flatpak-builder not found." >&2
   echo "  Fedora: sudo dnf install flatpak-builder" >&2
   echo "  or:     flatpak install flathub org.flatpak.Builder" >&2
   exit 1
-}
+fi
 
 echo "==> flatpak-builder ($APP_ID)"
-flatpak-builder --share=network --force-clean \
+"${BUILDER[@]}" --share=network --force-clean \
   --install-deps-from=flathub \
   --repo="$REPO" "$BUILD_DIR" "$MANIFEST"
 

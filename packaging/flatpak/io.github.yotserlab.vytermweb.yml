@@ -1,4 +1,4 @@
-app-id: io.github.c4tom.vytermweb
+app-id: io.github.yotserlab.vytermweb
 runtime: org.freedesktop.Platform
 runtime-version: '25.08'
 sdk: org.freedesktop.Sdk
@@ -35,6 +35,6 @@ modules:
       - rm -rf backend/dist && cp -a frontend/dist backend/dist
       - go -C backend build -trimpath -ldflags "-s -w" -o vy-termweb .
       - install -Dm755 backend/vy-termweb /app/bin/vy-termweb
-      - install -Dm644 packaging/flatpak/io.github.c4tom.vytermweb.desktop /app/share/applications/io.github.c4tom.vytermweb.desktop
-      - install -Dm644 packaging/flatpak/io.github.c4tom.vytermweb.metainfo.xml /app/share/metainfo/io.github.c4tom.vytermweb.metainfo.xml
-      - install -Dm644 packaging/flatpak/io.github.c4tom.vytermweb.svg /app/share/icons/hicolor/scalable/apps/io.github.c4tom.vytermweb.svg
+      - install -Dm644 packaging/flatpak/io.github.yotserlab.vytermweb.desktop /app/share/applications/io.github.yotserlab.vytermweb.desktop
+      - install -Dm644 packaging/flatpak/io.github.yotserlab.vytermweb.metainfo.xml /app/share/metainfo/io.github.yotserlab.vytermweb.metainfo.xml
+      - install -Dm644 packaging/flatpak/io.github.yotserlab.vytermweb.svg /app/share/icons/hicolor/scalable/apps/io.github.yotserlab.vytermweb.svg

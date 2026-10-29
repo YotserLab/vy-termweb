@@ -69,8 +69,8 @@ postinst). Runtime user, port and password live in
 ## Flatpak
 
 ```bash
-./scripts/build-flatpak.sh       # -> dist-flatpak/io.github.c4tom.vytermweb.flatpak
-flatpak install --user dist-flatpak/io.github.c4tom.vytermweb.flatpak
+./scripts/build-flatpak.sh       # -> dist-flatpak/io.github.yotserlab.vytermweb.flatpak
+flatpak install --user dist-flatpak/io.github.yotserlab.vytermweb.flatpak
 ```
 
 Requires `flatpak-builder` and the flathub runtimes

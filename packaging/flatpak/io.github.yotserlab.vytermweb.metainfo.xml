@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-  <id>io.github.c4tom.vytermweb</id>
+  <id>io.github.yotserlab.vytermweb</id>
   <name>VY-TermWEB</name>
   <summary>Web-based SSH/SFTP terminal and infrastructure manager</summary>
   <metadata_license>MIT</metadata_license>
   <project_license>MIT</project_license>
   <developer>
-    <name>c4tom</name>
+    <name>YotserLab</name>
   </developer>
   <description>
     <p>
@@ -24,13 +24,13 @@
       <li>Encrypted credential vault, session groups, macros, i18n (en/pt-BR/es)</li>
     </ul>
   </description>
-  <launchable type="desktop-id">io.github.c4tom.vytermweb.desktop</launchable>
+  <launchable type="desktop-id">io.github.yotserlab.vytermweb.desktop</launchable>
   <categories>
     <category>Network</category>
     <category>System</category>
   </categories>
-  <url type="homepage">https://github.com/c4tom/vy-termweb</url>
-  <url type="bugtracker">https://github.com/c4tom/vy-termweb/issues</url>
+  <url type="homepage">https://github.com/YotserLab/vy-termweb</url>
+  <url type="bugtracker">https://github.com/YotserLab/vy-termweb/issues</url>
   <content_rating type="oars-1.1"/>
   <releases>
     <release version="1.3.0" date="2026-10-29"/>

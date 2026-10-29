@@ -44,7 +44,7 @@ cd backend && go vet . && go build .
 - `backend/flatpak.go` — `inFlatpak()` (FLATPAK_ID) + `hostCommand()` wrap
   host operations via `flatpak-spawn --host` (shell PTY, xdg-open,
   ip/ping/traceroute, ffmpeg, lscpu/dmidecode/lspci, df).
-- Manifest: `packaging/flatpak/io.github.c4tom.vytermweb.yml` — builds from
+- Manifest: `packaging/flatpak/io.github.yotserlab.vytermweb.yml` — builds from
   source (node20 + golang SDK ext); requires `flatpak-builder --share=network`.
 - finish-args: `--share=network`, `--filesystem=host`,
   `--talk-name=org.freedesktop.Flatpak` (sysadmin tool — host access is the point).

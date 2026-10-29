@@ -2,7 +2,7 @@
 Name=VY-TermWEB
 Comment=Web-based SSH/SFTP terminal and infrastructure manager
 Exec=vy-termweb
-Icon=io.github.c4tom.vytermweb
+Icon=io.github.yotserlab.vytermweb
 Type=Application
 Terminal=false
 Categories=Network;System;TerminalEmulator;
