@@ -50,7 +50,9 @@ fi
 echo "==> flatpak-builder ($APP_ID)"
 # --user: resolve runtimes/deps from the per-user installation — also the only
 # mode that works on CI runners (no system polkit/dbus for system installs).
-"${BUILDER[@]}" --user --force-clean \
+# --disable-rofiles-fuse: read-only source copies can't be unlinked on some
+# mounts (unlinkat EACCES during build-dir cleanup).
+"${BUILDER[@]}" --user --force-clean --disable-rofiles-fuse \
   --install-deps-from=flathub \
   --repo="$REPO" "$BUILD_DIR" "$MANIFEST"
 
