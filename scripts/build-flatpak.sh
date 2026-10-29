@@ -6,11 +6,12 @@
 #   ./scripts/build-flatpak.sh        # -> dist-flatpak/io.github.yotserlab.vytermweb.flatpak
 #
 # Requirements (user install is enough):
-#   flatpak-builder, plus the flathub remote with
-#   org.freedesktop.Platform/Sdk//25.08 and the node20 + golang SDK extensions.
-#   flatpak-builder --install-deps-from=flathub resolves missing runtimes.
+#   flatpak-builder (or `flatpak install flathub org.flatpak.Builder`), plus
+#   org.freedesktop.Platform/Sdk//25.08 and the node20 + golang SDK extensions
+#   (--install-deps-from=flathub resolves missing runtimes).
 #
-# The build needs network (pnpm install + go mod download) → --share=network.
+# The build needs network (pnpm install + go mod download) — granted via
+# `build-args: [--share=network]` in the manifest, not a CLI flag.
 
 set -euo pipefail
 
@@ -33,7 +34,7 @@ else
 fi
 
 echo "==> flatpak-builder ($APP_ID)"
-"${BUILDER[@]}" --share=network --force-clean \
+"${BUILDER[@]}" --force-clean \
   --install-deps-from=flathub \
   --repo="$REPO" "$BUILD_DIR" "$MANIFEST"
 

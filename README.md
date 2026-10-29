@@ -76,7 +76,7 @@ flatpak install --user dist-flatpak/io.github.yotserlab.vytermweb.flatpak
 Requires `flatpak-builder` and the flathub runtimes
 (`org.freedesktop.Sdk//25.08` + node20/golang SDK extensions — the script
 passes `--install-deps-from=flathub`). The manifest builds everything from
-source; it needs network access (`flatpak-builder --share=network`).
+source; it needs network access (manifest `build-args`).
 
 Inside the sandbox the app requests `--filesystem=host`,
 `--share=network` and `org.freedesktop.Flatpak` so that Local Shell spawns
